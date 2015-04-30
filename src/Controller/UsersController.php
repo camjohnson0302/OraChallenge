@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Network\Http\Client;
+// use('File', 'Utility');
 // use Cake\Network\HttpSocket;
 /**
  * Users Controller
@@ -172,14 +173,19 @@ class UsersController extends AppController
     {
 
         
+        // $img = $_POST['img.src'];
 
+        // print_r(is_readable($this->request->data['picture']['tmp_name']));
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["picture"]["name"]);
+        // print_r(realpath($_FILES["picture"]["tmp_name"]));
 
         $data = array(
             "challenger_token" => "d64a51be36af1551193003566d396091329b2b54",
             "username" => $this->request->data['username'],
             "name" => $this->request->data['name'],
             "email" => $this->request->data['email'],
-            "picture" => $this->request->data['picture'],
+            "picture" => realpath($_FILES["picture"]["tmp_name"]),
             "dob" => "1984-01-01",
             "gender" => $this->request->data['gender'],
             "password" => $this->request->data['password']
@@ -191,9 +197,14 @@ class UsersController extends AppController
             json_encode($data),
             ['type' => 'json']
         );
-        print_r ($this->request);
-        echo '<br>';
+
+
+
         print_r ($response);
+        // print_r ($this->request->data['picture2']);
+       
+
+        // print_r ($_FILES);
         // return $this->redirect(['action' => 'index']);
 
 
